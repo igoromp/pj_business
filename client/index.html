@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Business</title>
-
+	<meta charset="utf-8">
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -11,6 +11,8 @@
 <body>
 	<div class="container">
 		<h1 class="text-center">Business</h1>
+		<br>
+		<div id="msg-alert" class="col-md-4 col-md-offset-4 text-center"></div>
 		<div class="col-md-4 col-md-offset-4">
 			<form class="form form-horizontal" onsubmit="negctrl.adiciona(event)">
 				<div class="form-group">
@@ -30,26 +32,22 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-md-8 col-md-offset-2">
-				<table class="table table-hover table-bordered">
-					<thead>
-						<th>Data</th>
-						<th>Quantidade</th>
-						<th>Valor</th>
-						<th>Volume</th>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
+			<div class="col-md-8 col-md-offset-2" id="negociacoes-view">
+				<!-- TABLE AQUI -->
 			</div> 					
 		</div>
 
 	<script src="assets/js/app/models/Negociacao.js"></script>
 	<script src="assets/js/app/controllers/NegociacaoCtrl.js"></script>
+	<script src="assets/js/app/models/ListaNegociacoes.js"></script>
+	<script src="assets/js/app/helpers/DateHelper.js"></script>
+	<script src="assets/js/app/views/View.js"></script>
+	<script src="assets/js/app/views/NegociacoesView.js"></script>
+	<script src="assets/js/app/models/Mensagem.js"></script>
+	<script src="assets/js/app/views/MensagemView.js"></script>
+	
 	<script>
 		let negctrl = new NegociacaoCtrl();
-
 	</script>
 	
 	</body>
