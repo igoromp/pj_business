@@ -5,13 +5,13 @@ class NegociacaoCtrl{
 		this._qtd = $("#qtd");
 		this._data = $("#data");
 		this._valor = $("#vlr");
-		
-		this._listaNegociacoes = new ListaNegociacoes();
-		this._negociacoesView = new NegociacoesView($("#negociacoes-view"));
-		this._negociacoesView.update(this._listaNegociacoes);
-		
-		this._mensagem = new Mensagem();
-		this._mensagemView = new MensagemView($("#msg-alert"));
+
+		this._listaNegociacoes = new Bind(
+			new ListaNegociacoes(),
+			new NegociacoesView($("#negociacoes-view")),
+			'add','esvazia');
+
+		this._mensagem = new Bind(new Mensagem(), new MensagemView($("#msg-alert")),'texto');
 		
 	}
 
@@ -20,13 +20,29 @@ class NegociacaoCtrl{
 		e.preventDefault();
 		
 		this._listaNegociacoes.add(this.__criarNegociacao());
-		this._mensagem.texto ='Negociação adicionada com sucesso.';	
-		this._negociacoesView.update(this._listaNegociacoes);
-		this._mensagemView.update(this._mensagem);	
-		
+		this._mensagem.texto ='Negociação adicionada com sucesso.';		
 		this.__limpaFormulario();
 		//console.log(this._listaNegociacoes.negociacoes);
 
+	}
+
+	importBusiness(){
+		let service = new NegociacaoService();
+
+		service.getBusinessWeek((err,negociacoes)=>{
+			if(err){
+				this._mensagem.texto = err;
+				return;
+			}
+
+			negociacoes.forEach(negociacao=>this._listaNegociacoes.add(negociacao));
+			this._mensagem.texto ='Negociações impostadas com sucesso';
+		});
+	}
+
+	apaga(){
+		this._listaNegociacoes.esvazia();
+		this._mensagem.texto ='Lista de negociações apagadas com sucesso.';
 	}
 
 	__criarNegociacao(){
